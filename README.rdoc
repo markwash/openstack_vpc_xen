@@ -1,0 +1,56 @@
+= OpenStack VPC Xen
+
+== Description
+
+Openstack Compute Virtual Private Cloud project. Creates an installation
+of Openstack Nova, Glance in a secured Cloud Servers VPN group. This
+project also includes task that make it possible to bootstrap external
+XenServer machines into the VPC group so that nova-compute can use xenapi.
+
+By default trunk PPA packages are used from Launchpad. 
+
+Nova is configured to use Glance as an image store. 
+
+By default a group of 4 servers is created:
+
+ -login
+ -glance1
+ -nova1 (Runs the entire nova stack except nova-compute)
+ -win1 (the Windows machine is handle to have for Citrix XenCenter)
+
+You then connect your own XenServer machines (running on bare metal) to the
+VPC and configure VM's on them to run nova-compute.
+
+Useful for developmental and functional/integration testing of OpenStack.
+
+== Requirements
+
+-Cloud Servers VPC: https://github.com/rackspace/cloud_servers_vpc
+-Chef VPC Toolkit: https://github.com/rackspace/chef_vpc_toolkit
+-Citrix XenServer: http://www.citrix.com/
+
+== Examples
+
+# Create a new OpenStack VPC server group (Cloud Servers/VPN/Chef/etc.)
+
+ rake create
+
+# Ssh into the group
+
+ rake ssh
+
+# Delete a group
+
+ rake group:delete
+
+# Rebuild/rechef a server within the group.
+
+ rake rechef SERVER_NAME=nova1
+
+# Install local nova source code branch onto a server within the group.
+
+ rake nova:install_source SOURCE_DIR=~/projects/nova-my-branch SERVER_NAME=nova1
+
+# Configure an externel XenServer machine to be on the VPC
+
+ rake xenserver:bootstrap XENSERVER_IP=1.2.3.4
