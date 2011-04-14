@@ -16,10 +16,12 @@ By default a group of 4 servers is created:
  -login
  -glance1
  -nova1 (Runs the entire nova stack except nova-compute)
- -win1 (the Windows machine is handle to have for Citrix XenCenter)
+ -win1 (a Windows machine is handy to have for running Citrix XenCenter)
 
 You then connect your own XenServer machines (running on bare metal) to the
 VPC and configure VM's on them to run nova-compute.
+
+Your own private Openstack installation running XenServer!
 
 Useful for developmental and functional/integration testing of OpenStack.
 
